@@ -7,6 +7,7 @@ public class ShrinkBall extends BasicBall{
     public ShrinkBall(double radius, Color color){
         super(radius, color);
         initial = 0;
+        name = "Shrink";
     }
 
     public void draw() { 

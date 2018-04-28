@@ -17,6 +17,7 @@ public class BasicBall {
     protected double radius;         // radius
     protected final Color color;     // color
     public boolean isOut;
+    public String name;
     
 
     // constructor
@@ -28,6 +29,7 @@ public class BasicBall {
         radius = r;
         color = c;
         isOut = false;
+        name = "Basic";
     }
    
    

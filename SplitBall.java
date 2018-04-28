@@ -2,8 +2,10 @@ import java.awt.Color;
 
 public class SplitBall extends BasicBall{
 
+
     public SplitBall(double radius, Color color){
         super(radius, color);
+        name = "Split";
     }
 
     public SplitBall(BasicBall motherBall) {

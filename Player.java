@@ -4,15 +4,11 @@ public class Player{
 
     private int numOfHits;
     private int currentScore;
-    private Map<String, Integer> stats = new HashMap<String, Integer>();
+    private String ballTypeWithMostHits;
 
     public Player(){
         numOfHits = 0;
         currentScore = 0;
-        stats.put("BasicBall", 0);
-        stats.put("ShrinkBall", 0);
-        stats.put("BounceBall", 0);
-        stats.put("SplitBall", 0);
     }
 
     public void addHits(){
@@ -29,6 +25,14 @@ public class Player{
 
     public int getScore(){
         return currentScore;
+    }
+
+    public void setMostHits(String type) {
+        ballTypeWithMostHits = type;
+    }
+
+    public String getMostHits() {
+        return ballTypeWithMostHits;
     }
 
 }

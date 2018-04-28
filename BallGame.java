@@ -40,8 +40,14 @@ public class BallGame {
     	}
      
     	//TO DO: create a Player object and initialize the player game stats.  
-    	Player player = new Player();
-    	
+        Player player = new Player();
+        // map ball type to frequency that it's hit
+        HashMap<String, Integer> ballsHit = new HashMap<String, Integer>();
+        ballsHit.put("Basic", 0);
+        ballsHit.put("Shrink", 0);
+        ballsHit.put("Bounce", 0);
+        ballsHit.put("Split", 0);
+            
     	//number of active balls
     	int numBallsinGame = 0;
         StdDraw.enableDoubleBuffering();
@@ -53,7 +59,7 @@ public class BallGame {
 
         // create colored balls 
         //TO DO: Create "numBalls" balls (of types given in "ballTypes" with sizes given in "ballSizes") and store them in an Arraylist
-        ArrayList<BasicBall> numBallsList = new ArrayList();
+        ArrayList<BasicBall> numBallsList = new ArrayList<BasicBall>(numBalls);
         for (int i = 0; i < numBalls; i++) {
             if (ballTypes[i].equals("basic")){
                 numBallsList.add(new BasicBall(ballSizes[i], Color.RED));
@@ -72,7 +78,7 @@ public class BallGame {
         StdDraw.enableDoubleBuffering();
         while (numBallsinGame > 0) {
 
-            //DONE TODO: move all balls
+            //Move all balls
             for(int i = 0; i < numBallsList.size(); i++){
                 numBallsList.get(i).move();
             }
@@ -81,7 +87,8 @@ public class BallGame {
             if (StdDraw.isMousePressed()) {
                 double x = StdDraw.mouseX();
                 double y = StdDraw.mouseY();
-                //DONE TODO: check whether a ball is hit. Check each ball. 
+
+                //Check whether a ball is hit. Check each ball. 
                 for(int i = 0; i < numBallsList.size(); i++){
                     BasicBall ball = numBallsList.get(i);
                     if (ball.isHit(x,y)) {
@@ -92,6 +99,19 @@ public class BallGame {
                     	//TO DO: Update player statistics
                         player.addHits();
                         player.addScore(ball.getScore());
+
+                        //Update the ball's hit frequency
+                        String hashKey = numBallsList.get(i).name;
+                        ballsHit.put(hashKey, ballsHit.get(hashKey) + 1);
+
+                        //Next, determine the ball that has been hit the most
+                        int mostHits = Collections.max(ballsHit.values());   // Take the greatest value
+                        for (Map.Entry<String, Integer> entry : ballsHit.entrySet()) {
+                            if (entry.getValue() == mostHits) {   //Get the Key
+                                player.setMostHits(entry.getKey());    
+                                break;
+                            }
+                        }
                     }
                 } 
             }
@@ -129,6 +149,10 @@ public class BallGame {
             //TO DO: print the rest of the player statistics
             StdDraw.show();
             StdDraw.pause(10);           
+            StdDraw.setPenColor(StdDraw.YELLOW);
+            font = new Font("Arial", Font.BOLD, 20);
+            StdDraw.setFont(font);
+            StdDraw.text(0, 0.5, "Most Hit Ball  : "+ player.getMostHits());
         }
         	
         

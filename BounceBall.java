@@ -6,6 +6,7 @@ public class BounceBall extends BasicBall{
 
     public BounceBall(double radius, Color color){
         super(radius, color);
+        name = "Bounce";
     }
 
     public void move() {
